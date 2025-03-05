@@ -9,10 +9,11 @@ dependencies = [
     "opencv-python",  # cv2 viene dentro de este paquete
     "numpy",
     "matplotlib",
-    "ctkmessagebox",
+    "CTkMessagebox",
     "pillow",         # PIL en pip es Pillow
     "pandas",
     "plotly",         # Incluye plotly.io y plotly.express
+    "kaleido",       # Para exportar gráficas de plotly a imágenes
 ]
 requires-python = ">=3.8"
 readme = "README.md"
