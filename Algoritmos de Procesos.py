@@ -65,17 +65,19 @@ class App(ctk.CTk):
                                    text_color="white")
         label_autor.pack(padx=10, pady=5)
 
-        switch = ctk.CTkSwitch(master=frame, text="Modo Oscuro", command=self.cambiar_modo, font=self.fuente2, text_color="white", 
+        self.switch = ctk.CTkSwitch(master=frame, text="Modo Oscuro", command=self.cambiar_modo, font=self.fuente2, text_color="white", 
                                corner_radius=10)
-        switch.pack(pady=10)
+        self.switch.pack(pady=10)
         
         self.set_icon("Windows.jpg")
 
     def cambiar_modo(self):
             if ctk.get_appearance_mode() == "Dark":
                 ctk.set_appearance_mode("Light")
+                self.switch.configure(text="Modo claro")
             else:
                 ctk.set_appearance_mode("Dark")
+                self.switch.configure(text="Modo oscuro")
     
     def abrir_grafica(self):
         self.withdraw()  # Oculta la ventana principal

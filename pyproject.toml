@@ -1,0 +1,19 @@
+[project]
+name = "AlgoritmosDespacho"
+version = "0.1.0"
+description = "Algoritmos de despacho con visualización en Tkinter y gráficas"
+authors = [{ name = "Samuel Herrera", email = "samuel.herrera@utp.edu.co" }]
+dependencies = [
+    "customtkinter",
+    "pygame",
+    "opencv-python",  # cv2 viene dentro de este paquete
+    "numpy",
+    "matplotlib",
+    "ctkmessagebox",
+    "pillow",         # PIL en pip es Pillow
+    "pandas",
+    "plotly",         # Incluye plotly.io y plotly.express
+]
+requires-python = ">=3.8"
+readme = "README.md"
+license = { text = "MIT" }
