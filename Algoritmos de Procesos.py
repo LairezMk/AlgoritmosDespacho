@@ -13,7 +13,7 @@ import cv2
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        ctk.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
+        ctk.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
         ctk.set_default_color_theme("ThemeCoffee.json")
         self.title("Algoritmos de Procesos")
         self.geometry("600x550")
@@ -31,19 +31,19 @@ class App(ctk.CTk):
         # Agregar la imagen en la parte superior
         CTkLabel(self, text="", image=side_img).pack(fill="x", side="top")
 
-        frame = ctk.CTkFrame(self, width=600, height=380, corner_radius=0)
-        frame.pack_propagate(0)  # Evita que el frame se redimensione
-        frame.pack(fill="both", expand=True)  
+        self.frame = ctk.CTkFrame(self, width=600, height=380, corner_radius=0)
+        self.frame.pack_propagate(0)  # Evita que el frame se redimensione
+        self.frame.pack(fill="both", expand=True)  
 
         # Título
-        self.label = ctk.CTkLabel(master=frame, text="Algoritmos de Procesos", font=self.fuente)
+        self.label = ctk.CTkLabel(master=self.frame, text="Algoritmos de Procesos", font=self.fuente)
         self.label.pack(pady=20)
         
-        self.button_iniciar = ctk.CTkButton(master=frame, text="Iniciar", font=self.fuente2,
+        self.button_iniciar = ctk.CTkButton(master=self.frame, text="Iniciar", font=self.fuente2,
                                              command=self.abrir_grafica)
         self.button_iniciar.pack(pady=20)
         
-        self.button_salir = ctk.CTkButton(master=frame, text="Salir", font=self.fuente2,
+        self.button_salir = ctk.CTkButton(master=self.frame, text="Salir", font=self.fuente2,
                                           command=self.on_closing)
         self.button_salir.pack(pady=20)
 
@@ -51,21 +51,21 @@ class App(ctk.CTk):
         icon_sjf = CTkImage(Image.open("sjf.png"), size=(50, 50))
         icon_prio = CTkImage(Image.open("prioridad.png"), size=(50, 50))
 
-        frame_icons = ctk.CTkFrame(master=frame, corner_radius=8)
+        frame_icons = ctk.CTkFrame(master=self.frame, corner_radius=8)
         frame_icons.pack(pady=10)
 
         CTkLabel(frame_icons, text=" FIFO ", image=icon_fifo).pack(side="left", padx=10)
         CTkLabel(frame_icons, text=" SJF ", image=icon_sjf).pack(side="left", padx=10)
         CTkLabel(frame_icons, text=" Prioridad ", image=icon_prio).pack(side="left", padx=10)
 
-        frame_info = ctk.CTkFrame(master=frame, corner_radius=8)
+        frame_info = ctk.CTkFrame(master=self.frame, corner_radius=8)
         frame_info.pack(side="bottom", anchor="se", padx=5, pady=5)
 
         label_autor = ctk.CTkLabel(frame_info, text="Desarrollado por:\nSamuel Herrera \nJonathan Gaviria", font=fuente_aviso, justify="left",
                                    text_color="white")
         label_autor.pack(padx=10, pady=5)
 
-        self.switch = ctk.CTkSwitch(master=frame, text="Modo Oscuro", command=self.cambiar_modo, font=self.fuente2, text_color="white", 
+        self.switch = ctk.CTkSwitch(master=self.frame, text="Modo Oscuro", command=self.cambiar_modo, font=self.fuente2, text_color="white", 
                                corner_radius=10)
         self.switch.pack(pady=10)
         
@@ -74,7 +74,7 @@ class App(ctk.CTk):
     def cambiar_modo(self):
             if ctk.get_appearance_mode() == "Dark":
                 ctk.set_appearance_mode("Light")
-                self.switch.configure(text="Modo claro")
+                self.switch.configure(text="Modo    claro")
             else:
                 ctk.set_appearance_mode("Dark")
                 self.switch.configure(text="Modo oscuro")
@@ -202,7 +202,7 @@ class Procesos(ctk.CTkToplevel):
         self.label_titulo = ctk.CTkLabel(frameizq, text="", font=self.fuente1)
         self.label_titulo.pack(pady=10)
 
-        self.label_nombre = ctk.CTkLabel(frameizq, text="Ingrese el nombre del proceso:", font=self.fuente2)
+        self.label_nombre = ctk.CTkLabel(frameizq, text="Ingrese el nombre del proceso: (máx 2 caracteres)", font=self.fuente2)
         self.label_nombre.pack(pady=5)
         #Hacer que el nombre solo pueda ser de maximo 2 caracteres
         self.entry_nombre = ctk.CTkEntry(frameizq, font=self.fuente2)
@@ -301,16 +301,16 @@ class Procesos(ctk.CTkToplevel):
         prioridad = self.entry_prioridad.get().strip()
 
         # Validaciones básicas
-        if not nombre or not llegada.isdigit() or not rafaga.isdigit() or not prioridad.isdigit():
+        if not nombre or not llegada.isdigit() or not rafaga.isdigit() or not prioridad.isdigit() or int(rafaga) <= 0:
             CTkMessagebox(title="Error", message="Por favor, ingrese valores válidos.")
             return
-
+    
         self.Lprocesos.append(Proceso(nombre, int(llegada), int(rafaga), int(prioridad)))
 
         if self.proceso_actual <= self.num_procesos:
             #Hacer que el mensaje de guardado desaparezca después de 2 segundos automaticamente
             self.label_mensaje = ctk.CTkLabel(self.frameder, text="Proceso guardado correctamente.", font=("Bevan", 14))
-            self.label_mensaje.pack(pady=5)
+            self.label_mensaje.pack(pady=270)
             self.after(2000, self.label_mensaje.destroy)  # Desaparece en 2 segundos
             #self.actualizar_interfaz()
 
@@ -336,6 +336,12 @@ class Procesos(ctk.CTkToplevel):
             Mostrar_Procesos(self.Lprocesos)
             self.destroy()
             self.volver_inicio()
+        #Si la ventana de resumen de procesos se cierra, se reinicia el proceso de ingreso de procesos
+        else:
+            self.Lprocesos=[]
+            self.proceso_actual=0
+            self.actualizar_interfaz()
+            
 
     def volver_inicio(self):
         self.destroy()
