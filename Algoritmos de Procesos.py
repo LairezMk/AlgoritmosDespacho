@@ -310,7 +310,7 @@ class Procesos(ctk.CTkToplevel):
         if self.proceso_actual <= self.num_procesos:
             #Hacer que el mensaje de guardado desaparezca después de 2 segundos automaticamente
             self.label_mensaje = ctk.CTkLabel(self.frameder, text="Proceso guardado correctamente.", font=("Bevan", 14))
-            self.label_mensaje.pack(pady=270)
+            self.label_mensaje.pack(pady=0)
             self.after(2000, self.label_mensaje.destroy)  # Desaparece en 2 segundos
             #self.actualizar_interfaz()
 
@@ -337,9 +337,9 @@ class Procesos(ctk.CTkToplevel):
             self.destroy()
             self.volver_inicio()
         #Si la ventana de resumen de procesos se cierra, se reinicia el proceso de ingreso de procesos
-        else:
+        elif self.mensaje.get()=="Cerrar":
             self.Lprocesos=[]
-            self.proceso_actual=0
+            self.proceso_actual = 0
             self.actualizar_interfaz()
             
 

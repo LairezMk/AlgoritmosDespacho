@@ -97,7 +97,7 @@ class Mostrar_Procesos(ctk.CTkToplevel):  # Clase para mostrar la ventana con gr
             self.label_fifo.pack(pady=20)
 
             #Crear un link para ver abrir el diagrama de gantt en el navegador, solo se ejecuta si se hace click en el link
-            self.link= ctk.CTkLabel(self.TabView.tab("FIFO"), text="Abrir en navegador", text_color="black", cursor="hand2", font=self.fuente1)
+            self.link= ctk.CTkLabel(self.TabView.tab("FIFO"), text="Abrir en navegador", text_color="lightblue", cursor="hand2", font=self.fuente1)
             self.link.pack(pady=20)
 
            # link=fig.show()
@@ -115,7 +115,7 @@ class Mostrar_Procesos(ctk.CTkToplevel):  # Clase para mostrar la ventana con gr
             self.label_sjf.pack(pady=20)
 
             #Crear un link para ver abrir el diagrama de gantt en el navegador, solo se ejecuta si se hace click en el link
-            self.link= ctk.CTkLabel(self.TabView.tab("SJF"), text="Abrir en navegador", text_color="black", cursor="hand2", font=self.fuente1)
+            self.link= ctk.CTkLabel(self.TabView.tab("SJF"), text="Abrir en navegador", text_color="lightblue", cursor="hand2", font=self.fuente1)
             self.link.pack(pady=20)
 
            # link=fig.show()
