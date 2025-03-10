@@ -74,7 +74,7 @@ class App(ctk.CTk):
     def cambiar_modo(self):
             if ctk.get_appearance_mode() == "Dark":
                 ctk.set_appearance_mode("Light")
-                self.switch.configure(text="Modo    claro")
+                self.switch.configure(text="Modo claro")
             else:
                 ctk.set_appearance_mode("Dark")
                 self.switch.configure(text="Modo oscuro")
@@ -327,7 +327,7 @@ class Procesos(ctk.CTkToplevel):
                         f"  - Ráfaga: {proceso.rafaga}\n"
                         f"  - Prioridad: {proceso.prioridad}\n")
 
-        self.mensaje=CTkMessagebox(title="Resumen de Procesos", message=mensaje, icon="info", option_1="Ok")
+        self.mensaje=CTkMessagebox(title="Resumen de Procesos", message=mensaje, icon="info", option_1="Ok", option_2="Cerrar")
         #self.destroy()  
         #self.volver_inicio()
         #Se muestran las graficas solo si se ha presionado el boton ok en el resumen de procesos
@@ -337,7 +337,7 @@ class Procesos(ctk.CTkToplevel):
             self.destroy()
             self.volver_inicio()
         #Si la ventana de resumen de procesos se cierra, se reinicia el proceso de ingreso de procesos
-        elif self.mensaje.get()=="Cerrar":
+        elif self.mensaje.get()=="Cerrar" or self.mensaje.get()==None:
             self.Lprocesos=[]
             self.proceso_actual = 0
             self.actualizar_interfaz()
